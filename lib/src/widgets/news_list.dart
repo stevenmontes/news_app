@@ -35,8 +35,66 @@ class _News extends StatelessWidget {
           index: index,
         ),
         _CardTitle(article: article),
-        _CardImage(article: article)
+        _CardImage(article: article),
+        _CardBody(
+          article: article,
+        ),
+        const _CardButtons(),
+        const SizedBox(
+          height: 10,
+        ),
+        const Divider(),
       ],
+    );
+  }
+}
+
+class _CardButtons extends StatelessWidget {
+  const _CardButtons({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: myTheme.colorScheme.secondary,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: const Icon(Icons.star_border),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: Colors.blue,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: const Icon(Icons.more),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _CardBody extends StatelessWidget {
+  final Article article;
+
+  const _CardBody({
+    required this.article,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Text(article.description ?? ''),
     );
   }
 }
@@ -94,6 +152,19 @@ class _CardImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('HOla mundo');
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(50), bottomRight: Radius.circular(50)),
+        child: article.urlToImage == null
+            ? const Image(
+                image: AssetImage('assets/img/no-image.png'),
+              )
+            : FadeInImage(
+                placeholder: const AssetImage('assets/img/giphy.gif'),
+                image: NetworkImage(article.urlToImage!)),
+      ),
+    );
   }
 }
