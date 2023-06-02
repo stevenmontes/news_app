@@ -18,9 +18,7 @@ class TabsPage extends StatelessWidget {
 }
 
 class _Navigation extends StatelessWidget {
-  const _Navigation({
-    super.key,
-  });
+  const _Navigation();
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +37,7 @@ class _Navigation extends StatelessWidget {
 }
 
 class _Pages extends StatelessWidget {
-  const _Pages({
-    super.key,
-  });
+  const _Pages();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +47,7 @@ class _Pages extends StatelessWidget {
       controller: navigationProvider.pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        Tab1Page(),
+        const Tab1Page(),
         Container(
           color: Colors.green,
         )

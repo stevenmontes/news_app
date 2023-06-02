@@ -4,9 +4,11 @@ import 'package:news_app/src/services/news_service.dart';
 import 'package:news_app/src/theme/theme.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
           title: 'Material App',
           debugShowCheckedModeBanner: false,
           theme: myTheme,
-          home: TabsPage()),
+          home: const TabsPage()),
     );
   }
 }
