@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/src/models/category_model.dart';
 import 'package:news_app/src/models/news_models.dart';
 import 'package:news_app/src/services/news_service.dart';
+import 'package:news_app/src/theme/theme.dart';
 import 'package:provider/provider.dart';
 
 class Tab2Page extends StatelessWidget {
@@ -59,11 +60,10 @@ class _CategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newsService = Provider.of<NewsService>(context);
+
     return GestureDetector(
-      onTap: () {
-        final newsService = Provider.of<NewsService>(context, listen: false);
-        newsService.selectedCategory = category.name;
-      },
+      onTap: () => newsService.selectedCategory = category.name,
       child: Container(
         width: 40,
         height: 40,
@@ -72,7 +72,9 @@ class _CategoryButton extends StatelessWidget {
             const BoxDecoration(shape: BoxShape.circle, color: Colors.white),
         child: Icon(
           category.icon,
-          color: Colors.black54,
+          color: category.name == newsService.selectedCategory
+              ? myTheme.colorScheme.secondary
+              : Colors.black54,
         ),
       ),
     );
