@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/src/models/category_model.dart';
+import 'package:news_app/src/models/news_models.dart';
 import 'package:news_app/src/services/news_service.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +60,10 @@ class _CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        final newsService = Provider.of<NewsService>(context, listen: false);
+        newsService.selectedCategory = category.name;
+      },
       child: Container(
         width: 40,
         height: 40,

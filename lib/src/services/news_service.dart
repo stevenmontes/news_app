@@ -9,6 +9,7 @@ class NewsService extends ChangeNotifier {
   final _baseUrl = 'newsapi.org';
   final _apiKey = 'b7541b7a27fc488aa4a8527eb594f723';
 
+  Map<String, List<Article>> categoryArticles = {};
   List<Article> headlines = [];
   List<Category> categories = [
     Category(FontAwesomeIcons.building, 'business'),
@@ -20,8 +21,22 @@ class NewsService extends ChangeNotifier {
     Category(FontAwesomeIcons.memory, 'technology'),
   ];
 
+  String _selectedCategory = 'business';
+
   NewsService() {
     getTopHeadlines();
+
+    for (var category in categories) {
+      categoryArticles[category.name] = [];
+    }
+  }
+
+  String get selectedCategory => _selectedCategory;
+
+  set selectedCategory(String value) {
+    _selectedCategory = value;
+    getArticlesByCategory(value);
+    notifyListeners();
   }
 
   getTopHeadlines() async {
@@ -30,6 +45,19 @@ class NewsService extends ChangeNotifier {
     final response = await http.get(url);
     final newsResponse = NewsResponse.fromJson(response.body);
     headlines.addAll(newsResponse.articles);
+    notifyListeners();
+  }
+
+  getArticlesByCategory(String category) async {
+    if (categoryArticles[category]!.isNotEmpty) {
+      return categoryArticles[category];
+    }
+
+    final url = Uri.https(_baseUrl, 'v2/top-headlines',
+        {'country': 'ca', 'apikey': _apiKey, 'category': category});
+    final response = await http.get(url);
+    final newsResponse = NewsResponse.fromJson(response.body);
+    categoryArticles[category]!.addAll(newsResponse.articles);
     notifyListeners();
   }
 }
