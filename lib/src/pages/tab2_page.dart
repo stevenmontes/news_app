@@ -16,7 +16,7 @@ class Tab2Page extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            const _CategoriesListView(),
+            _CategoriesListView(),
             Expanded(
                 child: NewsList(news: newsService.getSelectedCategoryArticles))
           ],
